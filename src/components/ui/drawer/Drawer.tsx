@@ -3,14 +3,16 @@ import {Drawer} from "@mui/material";
 import styles from "./Drawer.module.scss";
 import Image from "next/image";
 import AuthButtons from "@/components/widgets/auth-buttons/AuthButtons";
-import {headerContent} from "@/resources/content";
 import {drawerConfig} from "@/resources/styles-config";
 import {DrawerMenuProps} from "@/types/drawer-menu";
 import Selectors from "@/components/widgets/selectors/Selectors";
+import {useI18n} from "@/context/i18nContext";
+import {getHeaderContent} from "@/resources/content";
 
 const DrawerMenu: FC<DrawerMenuProps> = ({open, onClose}) => {
     const cfg = drawerConfig;
-
+    const { lang } = useI18n();
+    const headerContent = getHeaderContent(lang);
     return (
         <Drawer
             anchor={cfg.anchor}

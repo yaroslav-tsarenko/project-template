@@ -59,7 +59,7 @@ const pricingSchema: PageSchema = {
                     tokens: 1000,
                     description: "Ara sıra kılavuz ihtiyacı olan bireyler için mükemmel.",
                     features: [
-                        "5 jeton dahil",
+                        "1000 jeton dahil",
                         "Anında kılavuz erişimi",
                         "Süresiz kullanım",
                         "Tek seferlik projeler için ideal"
@@ -75,7 +75,7 @@ const pricingSchema: PageSchema = {
                     tokens: 2000,
                     description: "Profesyoneller ve küçük ekipler için harika.",
                     features: [
-                        "20 jeton dahil",
+                        "2000 jeton dahil",
                         "Öncelikli kılavuz oluşturma",
                         "İndir & çevrimdışı erişim",
                         "Büyüyen ekipler için en iyi değer"
@@ -91,7 +91,7 @@ const pricingSchema: PageSchema = {
                     tokens: 4000,
                     description: "Düzenli dokümantasyon ihtiyacı olan işletmeler için en iyisi.",
                     features: [
-                        "50 jeton dahil",
+                        "4000 jeton dahil",
                         "Özel destek",
                         "Çok dilli kılavuzlar",
                         "Sektöre özel rehberler",
@@ -132,10 +132,10 @@ const pricingSchema: PageSchema = {
                 type: "text",
                 title: "Jeton Sistemi Nasıl Çalışır?",
                 description:
-                    `Açtığınız her kılavuz için jeton gerekir. Jetonları bir kez satın alın, istediğinizde kullanın. Jetonların süresi dolmaz, böylece dokümantasyon stratejinizi baskı olmadan planlayabilirsiniz.`,
+                    `Açtığınız her kılavuz için jeton gerekir. Jetonları bir kez satın alın, istediğinizde kullanın. Jetonların süresi dolmaz, böylece dokümantasyon stratejinizi baskı olmadan planlayabilirsiniz. Ek hizmetler (özelleştirme, çeviri vb.) ayrıca fiyatlandırılır.`,
                 bullets: [
-                    "1 jeton = 1 kılavuz (standart karmaşıklık)",
-                    "Gelişmiş rehberler birden fazla jeton gerektirebilir",
+                    "30 jeton = 1 kılavuz (standart karmaşıklık)",
+                    "Gelişmiş rehberler veya ek hizmetler daha fazla jeton gerektirebilir",
                     "Jetonlar hesabınızda kalır",
                 ],
             },
@@ -195,7 +195,7 @@ const pricingSchema: PageSchema = {
                 },
                 {
                     question: "Bir kılavuz kaç jeton?",
-                    answer: "Çoğu kılavuz 1 jetondur. Daha karmaşık veya özel kılavuzlar ek jeton gerektirebilir, bu önceden belirtilir.",
+                    answer: "Her kılavuz 30 jetondur. Daha karmaşık veya özel kılavuzlar ve ek hizmetler ek jeton gerektirebilir, bu önceden belirtilir.",
                 },
                 {
                     question: "İade yapıyor musunuz?",

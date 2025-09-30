@@ -75,9 +75,11 @@ export type GridItem = {
 export type LegacyCard = {
     image: string;
     title: string;
+    type: string;
     description: string;
     buttonLink: string;
     buttonText: string;
+    variant: string;
 };
 
 export type GridBlock = {

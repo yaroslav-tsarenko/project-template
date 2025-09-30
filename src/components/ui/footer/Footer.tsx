@@ -5,12 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
 import styles from "./Footer.module.scss";
-import { footerContent } from "@/resources/content";
+import {getFooterContent} from "@/resources/content";
 import { footerStyles } from "@/resources/styles-config";
 import {SmartLinkProps} from "@/types/smart-link";
 import {media} from "@/resources/media";
 import {useI18n} from "@/context/i18nContext";
-
 export const footerTranslations = {
     en: {
         company: "Company",
@@ -63,8 +62,9 @@ const SmartLink: React.FC<SmartLinkProps> = ({
 };
 
 const Footer: React.FC = () => {
-    const { logo, columns, contact, socials, legal } = footerContent;
     const { lang } = useI18n();
+    const footerContent = getFooterContent(lang);
+    const { logo, columns, contact, socials, legal } = footerContent;
     const t = footerTranslations[lang];
     const LegalAddress = () =>
         legal?.addressLines?.length ? (
@@ -302,7 +302,7 @@ const Footer: React.FC = () => {
                         ))}
                         {legal && (
                             <div className={styles["footer__mega-col"]}>
-                                <div className={styles["footer__column-title"]}>Company</div>
+                                <div className={styles["footer__column-title"]}>{t.company}</div>
                                 <LegalBlock />
                                 <div className={styles.payments}>
                                     <p>
@@ -318,6 +318,7 @@ const Footer: React.FC = () => {
                                 </div>
                             </div>
                         )}
+
                     </div>
                     <div className={styles["footer__mega-bottom"]}>
                         <div className={styles["footer__contact-row"]}>
