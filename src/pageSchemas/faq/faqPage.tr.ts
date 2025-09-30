@@ -46,7 +46,7 @@ const faqSchema: PageSchema = {
                 {
                     question: "Bir kılavuzun fiyatı ne kadar?",
                     answer:
-                        "Fiyat, kılavuzun karmaşıklığına ve uzunluğuna bağlıdır. Basit hızlı başlangıç kılavuzları daha az jeton gerektirirken, detaylı teknik dokümantasyon daha fazla jeton gerektirir."
+                        "Standart bir kılavuz 30 jetondur. Daha gelişmiş veya özel kılavuzlar için karmaşıklığa ve uzunluğa bağlı olarak daha fazla jeton gerekebilir. Basit hızlı başlangıç kılavuzları daha az jeton gerektirirken, detaylı teknik dokümantasyon daha fazla jeton gerektirir."
                 },
                 {
                     question: "Abonelik gerekli mi?",

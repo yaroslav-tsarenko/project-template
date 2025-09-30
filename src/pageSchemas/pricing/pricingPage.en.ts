@@ -59,7 +59,7 @@ const pricingSchema: PageSchema = {
                     tokens: 1000,
                     description: "Perfect for individuals who need occasional manuals.",
                     features: [
-                        "5 tokens included",
+                        "1000 tokens included",
                         "Instant manual access",
                         "No expiration",
                         "Best for one-time projects"
@@ -75,7 +75,7 @@ const pricingSchema: PageSchema = {
                     tokens: 2000,
                     description: "Great for professionals and small teams.",
                     features: [
-                        "20 tokens included",
+                        "2000 tokens included",
                         "Priority manual creation",
                         "Download & offline access",
                         "Best value for growing teams"
@@ -91,7 +91,7 @@ const pricingSchema: PageSchema = {
                     tokens: 4000,
                     description: "Best for businesses with regular documentation needs.",
                     features: [
-                        "50 tokens included",
+                        "4000 tokens included",
                         "Dedicated support",
                         "Multi-language manuals",
                         "Custom industry guides",
@@ -132,10 +132,10 @@ const pricingSchema: PageSchema = {
                 type: "text",
                 title: "How the Token System Works",
                 description:
-                    `Each manual you unlock requires tokens. Buy tokens once and use them whenever you need. Tokens never expire, so you have full flexibility to plan your documentation strategy without pressure.`,
+                    `Each manual you unlock requires tokens. Buy tokens once and use them whenever you need. Tokens never expire, so you have full flexibility to plan your documentation strategy without pressure. Additional services (customization, translation, etc.) are priced separately.`,
                 bullets: [
-                    "1 token = 1 manual (standard complexity)",
-                    "Advanced guides may require multiple tokens",
+                    "30 tokens = 1 manual (standard complexity)",
+                    "Advanced guides or extra services may require more tokens",
                     "Tokens stay in your account until used",
                 ],
             },
@@ -195,7 +195,7 @@ const pricingSchema: PageSchema = {
                 },
                 {
                     question: "How many tokens does a manual cost?",
-                    answer: "Most manuals cost 1 token. More complex or custom manuals may require additional tokens, which is always shown in advance.",
+                    answer: "Each manual costs 30 tokens. Advanced or custom manuals and extra services may require additional tokens, which is always shown in advance.",
                 },
                 {
                     question: "Do you offer refunds?",

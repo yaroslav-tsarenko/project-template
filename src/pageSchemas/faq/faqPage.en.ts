@@ -46,7 +46,7 @@ const faqSchema: PageSchema = {
                 {
                     question: "How much does a manual cost?",
                     answer:
-                        "The cost depends on the complexity and length of the manual. Simple quick-start guides require fewer tokens, while detailed technical documentation requires more."
+                        "A standard manual costs 30 tokens. The cost may increase for advanced or custom manuals, depending on complexity and length. Simple quick-start guides require fewer tokens, while detailed technical documentation requires more."
                 },
                 {
                     question: "Do I need a subscription?",

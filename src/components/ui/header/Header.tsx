@@ -1,7 +1,6 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import {headerContent} from "@/resources/content";
 import styles from "./Header.module.scss";
 import {IconButton} from "@mui/material";
 import {FaBars} from "react-icons/fa";
@@ -11,12 +10,15 @@ import AuthButtons from "@/components/widgets/auth-buttons/AuthButtons";
 import {headerStyles} from "@/resources/styles-config";
 import DrawerMenu from "@/components/ui/drawer/Drawer";
 import Selectors from "@/components/widgets/selectors/Selectors";
+import { getHeaderContent } from "@/resources/content";
+import { useI18n } from "@/context/i18nContext";
 
 const Header: React.FC = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
-
     const user = useUser();
+    const { lang } = useI18n();
+    const headerContent = getHeaderContent(lang);
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 10);
