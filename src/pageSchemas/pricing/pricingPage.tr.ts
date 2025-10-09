@@ -10,23 +10,23 @@ import {
 const pricingSchema: PageSchema = {
     meta: {
         title: `Fiyatlandırma — ${COMPANY_NAME}`,
-        description:
-            `${COMPANY_NAME} için ihtiyacınıza uygun jeton paketini seçin. Bireyler, profesyoneller ve işletmeler için Başlangıç, Pro ve Kurumsal seçeneklerle esnek fiyatlandırma.`,
+        description: `${COMPANY_NAME} token paketlerinden ihtiyaçlarınıza en uygun olanı seçin. Bireyler, profesyoneller ve işletmeler için esnek fiyatlandırma.`,
         keywords: [
             `${COMPANY_NAME} fiyatlandırma`,
-            "jeton paketleri",
+            "token paketleri",
             "kılavuz erişimi",
-            "abonelik alternatifleri",
-            "kılavuz fiyatları"
+            "abonelik alternatifi",
+            "esnek fiyatlandırma",
         ],
         canonical: "/pricing",
         ogImage: {
             title: `${COMPANY_NAME} Fiyatlandırma`,
-            description: "Kılavuzlar için esnek jeton tabanlı fiyatlandırma.",
+            description: "Kılavuzlar için esnek, token tabanlı fiyatlandırma.",
             bg: "#ffffff",
             color: "#000000",
         },
     },
+
     blocks: [
         {
             type: "section",
@@ -34,18 +34,23 @@ const pricingSchema: PageSchema = {
             left: {
                 type: "text",
                 title: "Basit ve Şeffaf Fiyatlandırma",
-                description:
-                    `${COMPANY_NAME}’de sadece ihtiyacınız olanı ödersiniz. Jeton tabanlı sistemimiz esnek, uygun fiyatlı ve ölçeklenebilir — ister tek bir kılavuz açın, ister tüm şirketiniz için dokümantasyon yönetin.`,
+                description: `${COMPANY_NAME}’de yalnızca ihtiyacınız kadar ödeme yaparsınız. Token tabanlı sistemimiz esnek, uygun fiyatlı ve ölçeklenebilirdir — ister tek bir kılavuz açın, ister tüm ekibiniz için belge yönetin.`,
                 bullets: [
                     "Gizli ücret veya abonelik yok",
-                    "Jetonlar asla süresi dolmaz",
-                    "Bireyler, ekipler ve işletmeler için ideal",
+                    "Token’lar asla süresi dolmaz ve her zaman kullanılabilir",
+                    "Bireyler, serbest çalışanlar ve ekipler için idealdir",
+                    "Yalnızca ihtiyaç duyduğunuzda satın alın",
+                    "Otomatik yenileme veya taahhüt yok",
+                    "Satın alma sonrası anında erişim",
+                    "Her satın almadan önce net fiyat görünür",
+                    "Planlar arasında kolay yükseltme",
                 ],
                 centerTitle: true,
                 centerDescription: true,
                 centerBullets: true,
             },
         },
+
         {
             type: "grid",
             columns: 4,
@@ -57,14 +62,18 @@ const pricingSchema: PageSchema = {
                     title: "Başlangıç Paketi",
                     price: "10",
                     tokens: 1000,
-                    description: "Ara sıra kılavuz ihtiyacı olan bireyler için mükemmel.",
+                    description: "Zaman zaman kılavuzlara ihtiyaç duyan bireyler için mükemmel.",
                     features: [
-                        "1000 jeton dahil",
+                        "1000 token dahil",
                         "Anında kılavuz erişimi",
                         "Süresiz kullanım",
-                        "Tek seferlik projeler için ideal"
+                        "Tek seferlik projeler için ideal",
+                        "Uygun fiyatlı başlangıç paketi",
+                        "Abonelik gerektirmez",
+                        "Freelancer’lar için mükemmel",
+                        "Basit satın alma deneyimi",
                     ],
-                    buttonText: "Satın Al",
+                    buttonText: "Hemen Satın Al",
                     buttonLink: "/checkout?plan=starter",
                 },
                 {
@@ -73,12 +82,16 @@ const pricingSchema: PageSchema = {
                     title: "Pro Paketi",
                     price: "20",
                     tokens: 2000,
-                    description: "Profesyoneller ve küçük ekipler için harika.",
+                    description: "Profesyoneller ve küçük ekipler için mükemmel seçim.",
                     features: [
-                        "2000 jeton dahil",
+                        "2000 token dahil",
                         "Öncelikli kılavuz oluşturma",
-                        "İndir & çevrimdışı erişim",
-                        "Büyüyen ekipler için en iyi değer"
+                        "İndirme & çevrimdışı erişim",
+                        "Büyüyen ekipler için en iyi değer",
+                        "Daha hızlı kılavuz üretimi",
+                        "Yeni özelliklere erken erişim",
+                        "Düzenli kullanım için ideal",
+                        "Tüm cihazlardan erişim",
                     ],
                     buttonText: "Pro Ol",
                     buttonLink: "/checkout?plan=pro",
@@ -89,13 +102,16 @@ const pricingSchema: PageSchema = {
                     title: "Kurumsal Paket",
                     price: "40",
                     tokens: 4000,
-                    description: "Düzenli dokümantasyon ihtiyacı olan işletmeler için en iyisi.",
+                    description: "Düzenli belge ihtiyaçları olan işletmeler için en iyi seçenek.",
                     features: [
-                        "4000 jeton dahil",
+                        "4000 token dahil",
                         "Özel destek",
                         "Çok dilli kılavuzlar",
-                        "Sektöre özel rehberler",
-                        "Büyük ekipler için ölçeklenebilir"
+                        "Sektöre özel içerikler",
+                        "Kullanıcı rol yönetimi",
+                        "Departmanlar arası ölçeklenebilir",
+                        "Fatura desteği",
+                        "API entegrasyonu mevcut",
                     ],
                     buttonText: "Premium’a Geç",
                     buttonLink: "/checkout?plan=enterprise",
@@ -106,18 +122,23 @@ const pricingSchema: PageSchema = {
                     title: "Özel Paket",
                     price: "dynamic",
                     tokens: 0,
-                    description: "Kendi jeton miktarınızı girin, anında fiyat alın.",
+                    description: "Kendi token miktarınızı girin ve fiyatı anında görün.",
                     features: [
-                        "Esnek jeton seçimi",
+                        "Esnek token seçimi",
                         "Otomatik fiyat hesaplama",
                         "Süresiz kullanım",
-                        "Özel ihtiyaçlar için ideal"
+                        "Tamamen özelleştirilebilir",
+                        "Bütçenizi kolayca yönetin",
+                        "Belirli kullanım senaryoları için uygun",
+                        "Satın alma sonrası anında teslimat",
+                        "Yalnızca kullandığınız kadar ödeyin",
                     ],
                     buttonText: "Özel Satın Al",
                     buttonLink: "/checkout?plan=custom",
                 },
             ],
         },
+
         {
             type: "section",
             left: {
@@ -126,20 +147,25 @@ const pricingSchema: PageSchema = {
                 src: "image1",
                 width: "100%",
                 height: "400px",
-                alt: "Jeton sistemi nasıl çalışır",
+                alt: "Token sistemi nasıl çalışır",
             },
             right: {
                 type: "text",
-                title: "Jeton Sistemi Nasıl Çalışır?",
-                description:
-                    `Açtığınız her kılavuz için jeton gerekir. Jetonları bir kez satın alın, istediğinizde kullanın. Jetonların süresi dolmaz, böylece dokümantasyon stratejinizi baskı olmadan planlayabilirsiniz. Ek hizmetler (özelleştirme, çeviri vb.) ayrıca fiyatlandırılır.`,
+                title: "Token Sistemi Nasıl Çalışır?",
+                description: `Her açtığınız kılavuz belirli sayıda token gerektirir. Token’ları bir kez satın alın ve istediğiniz zaman kullanın. Token’ların süresi dolmaz, böylece belge stratejinizi tamamen özgürce planlayabilirsiniz. Ek hizmetler (özelleştirme, çeviri vb.) ayrı fiyatlandırılır.`,
                 bullets: [
-                    "30 jeton = 1 kılavuz (standart karmaşıklık)",
-                    "Gelişmiş rehberler veya ek hizmetler daha fazla jeton gerektirebilir",
-                    "Jetonlar hesabınızda kalır",
+                    "30 token = 1 standart kılavuz",
+                    "Gelişmiş kılavuzlar daha fazla token gerektirebilir",
+                    "Token’lar hesabınızda saklanır",
+                    "Kullanım onayından önce net olarak gösterilir",
+                    "Birden fazla satın alımı birleştirebilirsiniz",
+                    "Token kullanımınızı panelden takip edin",
+                    "İstediğiniz zaman yükleme yapabilirsiniz",
+                    "Kısa veya uzun vadeli ihtiyaçlar için ideal",
                 ],
             },
         },
+
         {
             type: "grid",
             columns: 2,
@@ -147,22 +173,21 @@ const pricingSchema: PageSchema = {
             cards: [
                 {
                     image: "image2",
-                    title: "Neden Jeton?",
-                    description:
-                        `Geleneksel abonelikler sizi sürekli ödemelere zorlar. ${COMPANY_NAME} ile sadece ihtiyacınız olan kılavuzlar için ödeme yaparsınız — basit, şeffaf ve ölçeklenebilir.`,
+                    title: "Neden Token?",
+                    description: `Geleneksel abonelikler sizi sürekli ödemelere bağlar. ${COMPANY_NAME} ile yalnızca ihtiyacınız olan kılavuzlar için ödeme yaparsınız — basit, şeffaf ve ölçeklenebilir.`,
                     buttonLink: "/about-us",
                     buttonText: "Daha Fazla Bilgi",
                 },
                 {
                     image: "image3",
                     title: "Kurumsal Avantajlar",
-                    description:
-                        `İşletmeler ekipler için daha büyük jeton paketleri satın alabilir. Maliyetleri azaltın, özel destek alın ve sektörünüze özel dokümantasyonun keyfini çıkarın.`,
+                    description: `İşletmeler ekipleri için daha büyük token paketleri satın alabilir. Maliyet tasarrufu sağlayın, özel destek alın ve sektörünüze özel içeriklerden yararlanın.`,
                     buttonLink: "/contact",
-                    buttonText: "Satış ile İletişim",
+                    buttonText: "Satış Ekibiyle İletişime Geçin",
                 },
             ],
         },
+
         {
             type: "section",
             align: "center",
@@ -170,40 +195,65 @@ const pricingSchema: PageSchema = {
             left: {
                 type: "text",
                 title: "Müşterilerimiz Ne Diyor?",
-                description:
-                    `Binlerce kullanıcı güvenilir dokümantasyon için ${COMPANY_NAME}’i tercih ediyor. Bireylerden işletmelere, jeton tabanlı fiyatlandırmamız herkesin ihtiyacı olan bilgiye ulaşmasını sağlıyor.`,
+                description: `${COMPANY_NAME}, binlerce kullanıcı tarafından güvenle kullanılmaktadır. Bireylerden kurumsal ekiplere kadar, token tabanlı fiyatlandırmamız herkesin ihtiyaç duyduğu bilgiye ulaşmasını sağlar.`,
                 bullets: [
-                    `"Freelance işlerim için harika — sadece ihtiyacım olduğunda kılavuz alıyorum."`,
-                    `"Mühendislik ekibimiz her hafta saatlerce zaman kazanıyor."`,
+                    `"Freelance işlerim için mükemmel — yalnızca ihtiyaç duyduğumda satın alıyorum."`,
+                    `"Mühendislik ekibimiz her hafta saatler kazanıyor, ${COMPANY_NAME} sayesinde."`,
                     `"Uygun fiyatlı, esnek ve kullanımı kolay — kesinlikle tavsiye ederim."`,
+                    `"Ekip büyüdükçe ölçeklendirmesi çok kolay."`,
+                    `"Abonelik modelinden geçtik ve çok memnunuz."`,
+                    `"Destek ekibi her zaman hızlı ve yardımsever."`,
+                    `"İç dokümantasyon yönetimi için mükemmel."`,
+                    `"Özel kılavuzlar tam olarak sektörümüz için uygundu."`,
                 ],
                 centerTitle: true,
                 centerDescription: true,
                 centerBullets: true,
             },
         },
+
         {
             type: "faq",
             items: [
                 {
-                    question: "Jetonların süresi dolar mı?",
-                    answer: "Hayır. Jetonlar hesabınızda istediğiniz kadar kalır.",
+                    question: "Token’ların süresi doluyor mu?",
+                    answer: "Hayır. Token’lar hesabınızda kalır ve istediğiniz zaman kullanabilirsiniz.",
                 },
                 {
-                    question: "Daha sonra paketimi yükseltebilir miyim?",
-                    answer: "Evet. Her zaman daha fazla jeton satın alabilir veya daha büyük bir pakete geçebilirsiniz.",
+                    question: "Planımı daha sonra yükseltebilir miyim?",
+                    answer: "Evet. Her zaman daha fazla token satın alabilir veya daha büyük bir pakete geçebilirsiniz.",
                 },
                 {
-                    question: "Bir kılavuz kaç jeton?",
-                    answer: "Her kılavuz 30 jetondur. Daha karmaşık veya özel kılavuzlar ve ek hizmetler ek jeton gerektirebilir, bu önceden belirtilir.",
+                    question: "Bir kılavuz kaç token gerektiriyor?",
+                    answer: "Her kılavuz 30 token gerektirir. Gelişmiş veya özel kılavuzlar ek token gerektirebilir, bu bilgi her zaman önceden gösterilir.",
                 },
                 {
                     question: "İade yapıyor musunuz?",
-                    answer: "Kullanılmamış jetonlar, satın alma tarihinden itibaren 14 gün içinde iade edilebilir.",
+                    answer: "Kullanılmamış token’lar, satın alma tarihinden itibaren 14 gün içinde iade edilebilir.",
                 },
                 {
-                    question: "İşletmeler için özel fiyatlandırma var mı?",
-                    answer: `Evet. Kurumsal müşteriler özel paketler, özel kılavuzlar ve özel destek için doğrudan bizimle iletişime geçebilir. E-posta: ${COMPANY_EMAIL}`,
+                    question: "İşletmelere özel fiyatlandırma sunuyor musunuz?",
+                    answer: `Evet. Kurumsal müşteriler özel paketler, özel kılavuzlar ve destek için bizimle iletişime geçebilir. E-posta: ${COMPANY_EMAIL}`,
+                },
+                {
+                    question: "Tüm planlarda destek dahil mi?",
+                    answer: "Evet. Tüm paketlerde destek ekibimize erişim dahildir. Kurumsal planlar öncelikli destek alır.",
+                },
+                {
+                    question: "Kılavuzları indirebilir miyim?",
+                    answer: "Evet. Pro ve Kurumsal planlarda kılavuzları PDF olarak indirip çevrimdışı kullanabilirsiniz.",
+                },
+                {
+                    question: "Token’larımı nasıl yönetebilirim?",
+                    answer: "Kullanıcı panelinizde token bakiyenizi, satın alma geçmişinizi ve faturalarınızı takip edebilirsiniz.",
+                },
+                {
+                    question: "Hangi ödeme yöntemlerini kabul ediyorsunuz?",
+                    answer: "Tüm büyük kredi kartlarını, PayPal’ı ve Kurumsal planlar için banka havalesini kabul ediyoruz.",
+                },
+                {
+                    question: "Token’ları ekibimle paylaşabilir miyim?",
+                    answer: "Evet. Pro ve Kurumsal planlar, uygun rol atamalarıyla token paylaşımına izin verir.",
                 },
             ],
         },

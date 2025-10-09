@@ -38,8 +38,13 @@ const pricingSchema: PageSchema = {
                     `At ${COMPANY_NAME}, you only pay for what you need. Our token-based system is flexible, affordable, and scalable — whether you’re unlocking one manual or managing documentation for your whole company.`,
                 bullets: [
                     "No hidden fees or subscriptions",
-                    "Tokens never expire",
-                    "Perfect for individuals, teams, and enterprises",
+                    "Tokens never expire and are always reusable",
+                    "Ideal for individuals, freelancers, and full teams",
+                    "Flexible usage — buy only when you need more",
+                    "No auto-renewals or commitments",
+                    "Access manuals instantly after purchase",
+                    "Transparent pricing visible before every purchase",
+                    "Simple upgrade path between plans"
                 ],
                 centerTitle: true,
                 centerDescription: true,
@@ -62,7 +67,11 @@ const pricingSchema: PageSchema = {
                         "1000 tokens included",
                         "Instant manual access",
                         "No expiration",
-                        "Best for one-time projects"
+                        "Best for one-time projects",
+                        "Affordable entry-level package",
+                        "No subscription required",
+                        "Great for freelancers and consultants",
+                        "Simple checkout experience"
                     ],
                     buttonText: "Buy Now",
                     buttonLink: "/checkout?plan=starter",
@@ -78,7 +87,11 @@ const pricingSchema: PageSchema = {
                         "2000 tokens included",
                         "Priority manual creation",
                         "Download & offline access",
-                        "Best value for growing teams"
+                        "Best value for growing teams",
+                        "Faster manual generation",
+                        "Early access to new features",
+                        "Suited for regular usage",
+                        "Access from any device"
                     ],
                     buttonText: "Get Pro",
                     buttonLink: "/checkout?plan=pro",
@@ -95,7 +108,10 @@ const pricingSchema: PageSchema = {
                         "Dedicated support",
                         "Multi-language manuals",
                         "Custom industry guides",
-                        "Scalable for large teams"
+                        "User role management",
+                        "Scalable across departments",
+                        "Invoicing support for companies",
+                        "API integration available"
                     ],
                     buttonText: "Go Premium",
                     buttonLink: "/checkout?plan=enterprise",
@@ -108,10 +124,14 @@ const pricingSchema: PageSchema = {
                     tokens: 0,
                     description: "Enter your own token amount and get instant pricing.",
                     features: [
-                        "Flexible tokens",
+                        "Flexible token selection",
                         "Automatic price calculation",
                         "No expiration",
-                        "Perfect for custom needs"
+                        "Perfect for custom needs",
+                        "Control your budget easily",
+                        "Great for specific use cases",
+                        "Instant delivery after checkout",
+                        "Pay only for what you use"
                     ],
                     buttonText: "Buy Custom",
                     buttonLink: "/checkout?plan=custom",
@@ -137,6 +157,11 @@ const pricingSchema: PageSchema = {
                     "30 tokens = 1 manual (standard complexity)",
                     "Advanced guides or extra services may require more tokens",
                     "Tokens stay in your account until used",
+                    "Token use is clearly shown before confirmation",
+                    "You can combine tokens from multiple purchases",
+                    "Track your token usage in your dashboard",
+                    "Top-up anytime with no delays",
+                    "Perfect for both short-term and long-term needs"
                 ],
             },
         },
@@ -176,6 +201,11 @@ const pricingSchema: PageSchema = {
                     `"Perfect for my freelance work — I only buy manuals when I need them."`,
                     `"Our engineering team saves hours every week thanks to ${COMPANY_NAME} manuals."`,
                     `"Affordable, flexible, and easy to use — highly recommended."`,
+                    `"Tokens make it easy to scale as our team grows."`,
+                    `"We switched from a subscription model and haven’t looked back."`,
+                    `"Support is responsive and helpful every time."`,
+                    `"Ideal for managing internal documentation needs."`,
+                    `"The custom manuals were spot on for our industry."`
                 ],
                 centerTitle: true,
                 centerDescription: true,
@@ -204,6 +234,26 @@ const pricingSchema: PageSchema = {
                 {
                     question: "Can businesses get custom pricing?",
                     answer: `Yes. Enterprises can contact us directly for tailored packages, custom manuals, and dedicated support. Email: ${COMPANY_EMAIL}`,
+                },
+                {
+                    question: "Is support included in all plans?",
+                    answer: "Yes. All packages include access to our support team. Enterprise plans receive priority support.",
+                },
+                {
+                    question: "Can I download manuals?",
+                    answer: "Yes. Manuals can be downloaded as PDFs for offline use in Pro and Enterprise plans.",
+                },
+                {
+                    question: "Is there a dashboard to manage tokens?",
+                    answer: "Yes. You can track your tokens, manual history, and billing via your user dashboard.",
+                },
+                {
+                    question: "What payment methods are accepted?",
+                    answer: "We accept all major credit cards, PayPal, and bank transfers for Enterprise plans.",
+                },
+                {
+                    question: "Can I share tokens with my team?",
+                    answer: "Yes. Pro and Enterprise users can share tokens across their team with proper role assignments."
                 },
             ],
         },
