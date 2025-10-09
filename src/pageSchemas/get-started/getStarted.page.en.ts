@@ -89,9 +89,14 @@ const schema: PageSchema = {
                 description:
                     `Your ${COMPANY_NAME} dashboard is the control center for your knowledge. Check your token balance, view your unlocked manuals, and track your download history — all in one place.`,
                 bullets: [
-                    "Track tokens and usage history",
-                    "Browse manuals by category",
-                    "Revisit and download unlocked guides anytime",
+                    "Track your total token balance and detailed usage history",
+                    "Browse all available manuals across categories and industries",
+                    "Easily access and re-download previously unlocked manuals",
+                    "Sort and filter manuals for faster navigation",
+                    "Receive updates about newly added guides",
+                    "Get suggestions based on your interests and downloads",
+                    "Manage your profile, email preferences, and language settings",
+                    "Access support and feedback tools from within the dashboard"
                 ],
             },
         },
@@ -103,9 +108,14 @@ const schema: PageSchema = {
                 description:
                     `Whether you need a single manual or an entire library, ${COMPANY_NAME} adapts to your needs. Purchase more tokens to unlock additional manuals and grow your personal documentation hub.`,
                 bullets: [
-                    "Small packages for individuals",
-                    "Bulk tokens for businesses",
-                    "Transparent, cost-effective pricing",
+                    "Choose packages that suit your project size and frequency",
+                    "Top up tokens instantly when needed",
+                    "Volume discounts for business users",
+                    "No monthly obligations — use only what you need",
+                    "Monitor token consumption from your dashboard",
+                    "Access exclusive deals and bonus packages",
+                    "Tokens valid indefinitely until used",
+                    "Perfect for freelancers, agencies, and enterprise teams"
                 ],
             },
             right: {
@@ -126,7 +136,7 @@ const schema: PageSchema = {
                     image: "image6",
                     title: "Multi-Device Access",
                     description:
-                        `Use your manuals on desktop, tablet, or smartphone. ${COMPANY_NAME} adapts to your workflow.`,
+                        `${COMPANY_NAME} supports mobile, tablet, and desktop — access manuals from any device anytime.`,
                     buttonLink: "/faq",
                     buttonText: "Learn More",
                 },
@@ -134,7 +144,7 @@ const schema: PageSchema = {
                     image: "image7",
                     title: "Offline Availability",
                     description:
-                        `Download manuals to access them anytime, even without an internet connection.`,
+                        `Download and store your manuals securely. Stay productive even when you’re not online.`,
                     buttonLink: "/faq",
                     buttonText: "Read FAQ",
                 },
@@ -150,10 +160,14 @@ const schema: PageSchema = {
                 description:
                     `Because we make technical knowledge easy, flexible, and accessible. From the first token you spend to the last manual you unlock, our system is designed to give you control and confidence.`,
                 bullets: [
-                    "Quick and easy onboarding",
-                    "Token-based flexibility",
-                    "Expert-created manuals",
-                    "Knowledge available 24/7",
+                    "Get started in under 5 minutes",
+                    "Pay only for what you unlock",
+                    "High-quality manuals written by experts",
+                    "24/7 access from anywhere in the world",
+                    "Download and share documentation with your team",
+                    "Dedicated support team at your fingertips",
+                    "No recurring charges or surprise fees",
+                    "Trustworthy platform used by professionals globally"
                 ],
                 centerTitle: true,
                 centerDescription: true,
@@ -181,7 +195,37 @@ const schema: PageSchema = {
                 {
                     question: "Do I need to install anything?",
                     answer:
-                        `No. ${COMPANY_NAME} works directly in your browser. Manuals are accessible from any device.`,
+                        `${COMPANY_NAME} works directly in your browser. Manuals are accessible from any device — no installations needed.`,
+                },
+                {
+                    question: "Is my data secure?",
+                    answer:
+                        `Yes. ${COMPANY_NAME} uses encrypted storage and secure transactions to protect your personal and payment data.`,
+                },
+                {
+                    question: "Can I download my manuals?",
+                    answer:
+                        `Absolutely. Once unlocked, you can download your manuals and store them offline for future reference.`,
+                },
+                {
+                    question: "Do you offer refunds?",
+                    answer:
+                        `If a technical issue or incorrect file occurs, you can contact us at ${COMPANY_EMAIL} for resolution or refund options.`,
+                },
+                {
+                    question: "Can I share manuals with my team?",
+                    answer:
+                        `You can purchase a team plan or multi-license package to enable secure manual sharing within your organization.`,
+                },
+                {
+                    question: "How do I contact support?",
+                    answer:
+                        `Our support team is available 24/7. Reach us via the contact form on the /contact-us page or email us at ${COMPANY_EMAIL}.`,
+                },
+                {
+                    question: "Do you offer enterprise packages?",
+                    answer:
+                        `Yes. ${COMPANY_NAME} offers scalable enterprise token bundles and integrations. Contact our sales team for a custom quote.`,
                 },
             ],
         },

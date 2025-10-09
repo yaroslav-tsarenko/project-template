@@ -4,39 +4,43 @@ import { COMPANY_NAME } from "@/resources/constants";
 const schema: PageSchema = {
     meta: {
         title: `Hizmetlerimiz — ${COMPANY_NAME}`,
-        description:
-            `${COMPANY_NAME} hizmetlerini keşfedin: teknoloji cihazları, elektronikler ve ekipmanlar için özel kılavuzlar. Esnek jeton sistemi, anında dijital erişim ve tüm teknoloji ihtiyaçlarınız için uzmanlık.`,
+        description: `${COMPANY_NAME} hizmetlerini keşfedin: teknoloji cihazları, elektronik ürünler ve ekipmanlar için özel hazırlanmış kılavuzlar. Esnek token sistemi, anında dijital erişim ve tüm teknoloji ihtiyaçlarınız için güvenilir uzmanlık.`,
         keywords: [
-            `${COMPANY_NAME} hizmetleri`,
-            "özel teknoloji kılavuzları",
+            `${COMPANY_NAME} hizmetler`,
+            "özel teknik kılavuzlar",
             "elektronik rehberler",
             "cihaz dokümantasyonu",
-            "IT ekipman kılavuzları",
-            "jeton sistemi",
+            "BT ekipman kılavuzları",
+            "token sistemi",
             "dijital kılavuzlar",
-            "teknik rehberler"
+            "teknik rehberler",
         ],
         canonical: "/services",
         ogImage: {
             title: `${COMPANY_NAME} Hizmetleri`,
             description:
-                "Teknoloji cihazları, elektronikler ve ekipmanlar için profesyonel kılavuzlar. Kişiye özel, esnek ve jeton tabanlı.",
+                "Teknoloji cihazları, elektronik ve ekipmanlar için profesyonel kılavuzlar. Özelleştirilebilir, esnek ve token tabanlı.",
             bg: "#ffffff",
             color: "#000000",
         },
     },
+
     blocks: [
         {
             type: "section",
             left: {
                 type: "text",
                 title: "Teknoloji Cihazları İçin Özel Kılavuzlar",
-                description:
-                    `Her teknoloji cihazı, elektronik alet ve IT ekipmanı benzersizdir. ${COMPANY_NAME}, tam da bu yüzden teknoloji ihtiyaçlarınıza özel kılavuzlar hazırlar. Akıllı telefonlardan bilgisayarlara, akıllı ev cihazlarından endüstriyel elektroniklere kadar uzmanlarımız net, yapılandırılmış ve doğru dokümantasyon sunar.`,
+                description: `Her teknoloji cihazı, elektronik alet ve BT ekipmanı kendine özgüdür. Bu nedenle ${COMPANY_NAME}, tam olarak sizin teknoloji ihtiyaçlarınıza uygun özel kılavuzlar üretir. Akıllı telefonlar, bilgisayarlar, akıllı ev cihazları veya endüstriyel elektroniklerle çalışıyor olun — uzmanlarımız net, yapılandırılmış ve doğru dokümantasyon sunar.`,
                 bullets: [
-                    "Kişiye özel teknoloji rehberleri",
-                    "Elektronikler için uzman içerik",
-                    "Ev aletlerinden endüstriyel IT ekipmanına kadar",
+                    "Kişiye özel hazırlanmış teknik kılavuzlar",
+                    "Elektronikler için uzman içerikler",
+                    "Ev tipi cihazlardan endüstriyel BT ekipmanlarına kadar kapsar",
+                    "Net ve yapılandırılmış belgeler",
+                    "Güncel bilgi ve uyumluluk garantisi",
+                    "Donanım ve yazılım süreçlerini kapsar",
+                    "Uzmanlar tarafından test edilip onaylanmıştır",
+                    "Teknisyenler, işletmeler ve kullanıcılar için idealdir",
                 ],
             },
             right: {
@@ -45,7 +49,7 @@ const schema: PageSchema = {
                 src: "image1",
                 width: "100%",
                 height: "400px",
-                alt: "Özel teknoloji kılavuzları",
+                alt: "Özel teknoloji kılavuzları hizmeti",
             },
         },
         {
@@ -55,26 +59,27 @@ const schema: PageSchema = {
             cards: [
                 {
                     image: "image2",
-                    title: "Hızlı Başlangıç Kılavuzları",
-                    description: "Teknoloji cihazınızı veya elektronik ekipmanınızı hızlıca çalıştırmak için kısa kılavuzlar.",
+                    title: "Hızlı Başlangıç Rehberleri",
+                    description:
+                        "Cihazınızı veya elektronik ekipmanınızı hızlıca çalıştırmak için kısa, pratik kılavuzlar.",
                     buttonLink: "/sign-up",
-                    buttonText: "Başla",
+                    buttonText: "Başlayın",
                 },
                 {
                     image: "image3",
                     title: "Adım Adım Eğitimler",
                     description:
-                        "Teknoloji kurulum, sorun giderme ve bakım için detaylı anlatımlar.",
+                        "Teknolojinizi kurmak, sorun gidermek ve bakım yapmak için detaylı yönlendirmeler.",
                     buttonLink: "/sign-up",
-                    buttonText: "Hemen Aç",
+                    buttonText: "Şimdi Açın",
                 },
                 {
                     image: "image4",
                     title: "Bakım Kılavuzları",
                     description:
-                        "Elektronik ve IT cihazlarınız için düzenli kontrol ve önleyici bakım rehberleri.",
+                        "Elektronik ve BT cihazlarınız için düzenli kontrol ve önleyici bakım rehberleriyle her zaman önde olun.",
                     buttonLink: "/sign-up",
-                    buttonText: "Rehberleri Gör",
+                    buttonText: "Kılavuzları Görüntüle",
                 },
             ],
         },
@@ -86,18 +91,21 @@ const schema: PageSchema = {
                 src: "image5",
                 width: "100%",
                 height: "400px",
-                alt: "Jeton tabanlı erişim",
+                alt: "Token tabanlı erişim",
             },
             right: {
                 type: "text",
-                title: "Esnek Jeton Sistemi",
-                description:
-                    `Abonelik yok. ${COMPANY_NAME} ile sadece ihtiyacınız olan teknoloji kılavuzları için jeton satın alırsınız. Akıllı telefon, bilgisayar, akıllı cihaz ve daha fazlası için rehberleri kolayca açın — basit, ölçeklenebilir ve şeffaf.`,
+                title: "Esnek Token Sistemi",
+                description: `Abonelik yok. ${COMPANY_NAME} ile yalnızca ihtiyacınız olan teknik kılavuzlar için token satın alır ve harcarsınız. Akıllı telefonlar, bilgisayarlar, akıllı cihazlar ve daha fazlası için rehberleri açın — basit, ölçeklenebilir ve şeffaf.`,
                 bullets: [
-                    "Aylık ücret yok",
-                    "Açtığınız kılavuz kadar ödeyin",
-                    "Kullanımınıza göre ölçeklenir",
-                    "Bireysel ve kurumsal kullanım için ideal",
+                    "Aylık ücret veya gizli maliyet yok",
+                    "Sadece ihtiyacınız kadar ödeme yapın",
+                    "Her bütçeye uygun token paketleri",
+                    "Bireysel veya ekip kullanımı için ölçeklenebilir",
+                    "İstediğiniz zaman kolayca token ekleyin",
+                    "Kullanım geçmişinizi takip edin",
+                    "Bütçe dostu model",
+                    "Esneklik ve adalet için tasarlanmıştır",
                 ],
             },
         },
@@ -106,12 +114,16 @@ const schema: PageSchema = {
             left: {
                 type: "text",
                 title: "Anında Dijital Erişim",
-                description:
-                    `${COMPANY_NAME} teknoloji ve elektronik kılavuzları, açıldıktan hemen sonra kullanılabilir. Panelinizden erişin, çevrimdışı indirin ve dijital kütüphanenizi düzenli tutun.`,
+                description: `${COMPANY_NAME} tarafından hazırlanan teknoloji ve elektronik kılavuzları, açıldıktan hemen sonra kullanılabilir. Panelinizden erişin, çevrimdışı kullanım için indirin ve dijital kütüphanenizi düzenli tutun.`,
                 bullets: [
-                    "Anında erişim",
-                    "Bulut ve çevrimdışı kullanım",
-                    "İstediğiniz zaman tekrar indirin",
+                    "Açtıktan hemen sonra kullanılabilir",
+                    "Çevrimiçi veya çevrimdışı kullanın",
+                    "Her cihazdan erişim imkanı",
+                    "Ek yazılım gerektirmez",
+                    "Sınırsız yeniden indirme hakkı",
+                    "Kişisel hesabınıza bağlıdır",
+                    "Etiket ve kategorilere göre organize edin",
+                    "7/24 güvenilir erişim",
                 ],
             },
             right: {
@@ -130,19 +142,19 @@ const schema: PageSchema = {
             cards: [
                 {
                     image: "image7",
-                    title: "Sektöre Özel Teknoloji Kılavuzları",
+                    title: "Sektöre Özel Teknik Kılavuzlar",
                     description:
-                        "Sağlık cihazları, inşaat elektroniği, IT ve üretim ekipmanları için özel rehberler.",
+                        "Sağlık cihazları, inşaat elektroniği, BT ve üretim ekipmanları için özel hazırlanmış rehberler.",
                     buttonLink: "/sign-up",
-                    buttonText: "Daha Fazla",
+                    buttonText: "Daha Fazla Bilgi",
                 },
                 {
                     image: "image8",
                     title: "Çok Dilli Dokümantasyon",
                     description:
-                        "Küresel ekipler ve farklı kullanıcılar için tercih ettiğiniz dilde teknoloji kılavuzlarına erişin.",
+                        "Kılavuzlara tercih ettiğiniz dilde erişin — küresel ekipler ve farklı kullanıcılar için idealdir.",
                     buttonLink: "/sign-up",
-                    buttonText: "Başla",
+                    buttonText: "Hemen Başlayın",
                 },
             ],
         },
@@ -152,13 +164,17 @@ const schema: PageSchema = {
             gap: "3rem",
             left: {
                 type: "text",
-                title: "Teknoloji Profesyonelleri ve Kullanıcılar Güveniyor",
-                description:
-                    `Mühendislerden IT uzmanlarına ve günlük kullanıcılara kadar ${COMPANY_NAME}, güvenilir teknoloji kılavuzları için başvurulan kaynaktır. Hizmetimiz, teknoloji ve elektronik hakkında yapılandırılmış bilgiye kolay erişim sunar.`,
+                title: "Teknoloji Uzmanları ve Kullanıcılar Tarafından Güveniliyor",
+                description: `Mühendislerden BT uzmanlarına, son kullanıcılardan işletmelere kadar ${COMPANY_NAME}, güvenilir teknik kılavuzlar için başvurulan kaynaktır. Hizmetimiz, profesyonel doğruluğu kolay erişimle birleştirir ve teknoloji ile elektronik konularında yapılandırılmış bilgiye ihtiyaç duyan herkes için uygundur.`,
                 bullets: [
-                    "Tüm teknoloji sektörlerinde tercih ediliyor",
-                    "Profesyoneller ve bireysel kullanıcılar için",
-                    "Uzman onaylı içerik",
+                    "Farklı sektörlerde güvenle kullanılmaktadır",
+                    "Mühendisler ve ekipler tarafından tercih edilir",
+                    "Kullanılabilirlik ve derinlik odaklı tasarım",
+                    "Teknik uzmanlar tarafından hazırlanmıştır",
+                    "Tutarlı ve doğrulanmış bilgiler",
+                    "Kolay gezinme için modern arayüz",
+                    "Eğitim ve işe alım süreçleri için idealdir",
+                    "Kullanıcı geri bildirimleriyle sürekli geliştirilir",
                 ],
                 centerTitle: true,
                 centerDescription: true,
@@ -171,22 +187,51 @@ const schema: PageSchema = {
                 {
                     question: `${COMPANY_NAME} hangi hizmetleri sunuyor?`,
                     answer:
-                        "Teknoloji cihazları, elektronikler ve IT ekipmanları için özel kılavuzlar, hızlı başlangıç rehberleri, eğitimler ve detaylı dokümantasyon sunuyoruz.",
+                        "Teknoloji cihazları, elektronik ürünler ve BT ekipmanları için özel hazırlanmış kılavuzlar, hızlı başlangıç rehberleri, adım adım eğitimler ve detaylı dokümantasyon sunuyoruz.",
                 },
                 {
-                    question: "Jeton sistemi nasıl çalışıyor?",
+                    question: "Token sistemi nasıl çalışıyor?",
                     answer:
-                        "Jeton satın alıp kılavuzlar için harcarsınız. Her rehberin karmaşıklığına göre jeton bedeli vardır. İhtiyacınız kadar jeton alabilirsiniz.",
+                        "Token satın alırsınız ve bunları kılavuzlarda harcarsınız. Her rehber, karmaşıklık seviyesine göre belirli sayıda token gerektirir. Daha fazla kılavuz ihtiyacınız varsa, daha fazla token satın alabilirsiniz.",
                 },
                 {
                     question: "Kılavuzları çevrimdışı kullanabilir miyim?",
                     answer:
-                        "Evet. Açtıktan sonra kılavuzları indirip internet olmadan da erişebilirsiniz.",
+                        "Evet. Bir kez açıldığında, kılavuzlar internet bağlantısı olmadan da indirilebilir ve erişilebilir.",
                 },
                 {
-                    question: "Kılavuzlar çok dilli mi?",
+                    question: "Birden fazla dilde kılavuz sunuyor musunuz?",
+                    answer: `${COMPANY_NAME}, küresel kullanıcıların ihtiyaçlarını karşılamak için çok dilli dokümantasyonu destekler.`,
+                },
+                {
+                    question: "Sorun yaşarsam müşteri desteği mevcut mu?",
                     answer:
-                        `${COMPANY_NAME}, küresel kullanıcılar için çok dilli dokümantasyon sunar.`,
+                        "Evet, destek ekibimiz sohbet ve e-posta yoluyla sorularınızı ve teknik sorunlarınızı çözmek için hizmetinizdedir.",
+                },
+                {
+                    question: "Kılavuzlar düzenli olarak güncelleniyor mu?",
+                    answer:
+                        "Evet, en son en iyi uygulamaları ve cihaz güncellemelerini içerecek şekilde kılavuzlarımızı düzenli olarak gözden geçiriyor ve yeniliyoruz.",
+                },
+                {
+                    question: "Şirketler toplu token paketleri alabilir mi?",
+                    answer:
+                        "Kesinlikle. Geniş kapsamlı erişim gerektiren işletmeler için indirimli fiyatlar ve kurumsal planlar sunuyoruz.",
+                },
+                {
+                    question: "Kılavuz beklentilerimi karşılamazsa iade alabilir miyim?",
+                    answer:
+                        "Bazı durumlarda, kılavuz hatalı veya beklenen kalitede değilse iade yapılabilir. Destek ekibimizle iletişime geçin.",
+                },
+                {
+                    question: "Verilerim ve token bakiyem ne kadar güvende?",
+                    answer:
+                        "Hesap verilerinizi, satın alımlarınızı ve erişimlerinizi korumak için güvenli bulut altyapısı ve şifreleme kullanıyoruz.",
+                },
+                {
+                    question: "Kılavuzları başkalarıyla paylaşabilir miyim?",
+                    answer:
+                        "Kılavuzlar hesabınıza ve lisansınıza bağlıdır. Hesabınız dışındaki paylaşımlar kurallarımıza aykırıdır, ancak ekip veya kurumsal erişim mümkündür.",
                 },
             ],
         },
