@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import styles from "./PricingCard.module.scss";
 import ButtonUI from "@/components/ui/button/ButtonUI";
@@ -11,7 +10,7 @@ import { useCurrency } from "@/context/CurrencyContext";
 interface PricingCardProps {
     variant?: "basic" | "highlight" | "premium";
     title: string;
-    price: string; // у фунтах або "dynamic"
+    price: string; // базова ціна у GBP або "dynamic"
     tokens: number;
     description: string;
     features: string[];
@@ -25,16 +24,18 @@ const currencyConfig = {
     EUR: { symbol: "€" },
 } as const;
 
+// 🔹 Фіксовані ліміти
 const MIN_CUSTOM_AMOUNT = 1;
 const MAX_CUSTOM_AMOUNT = 9999;
 
-// Fallback курси до фунта
+// 🔹 Курси резервні, якщо API не працює
 const FALLBACK_RATES = {
     GBP: 1,
     USD: 1.343, // 1 GBP = 1.343 USD
     EUR: 1.145, // 1 GBP = 1.145 EUR
 };
 
+// 🔹 Скільки токенів за 1 GBP
 const TOKENS_PER_GBP = 100;
 
 const PricingCard: React.FC<PricingCardProps> = ({
@@ -49,71 +50,73 @@ const PricingCard: React.FC<PricingCardProps> = ({
     const { showAlert } = useAlert();
     const user = useUser();
     const { currency } = useCurrency();
-
     const { symbol } = currencyConfig[currency];
     const [customAmount, setCustomAmount] = useState<number>(MIN_CUSTOM_AMOUNT);
     const [rate, setRate] = useState<number>(FALLBACK_RATES[currency]);
+    const [convertedPrice, setConvertedPrice] = useState<number>(0);
 
-    // завантажуємо курс для актуальної валюти
+    // 🔹 завантажуємо актуальний курс валют
     useEffect(() => {
         const fetchRate = async () => {
             try {
                 const res = await fetch(`https://api.exchangerate.host/latest?base=GBP&symbols=${currency}`);
                 if (!res.ok) throw new Error("Failed to fetch rates");
                 const data = await res.json();
-                const r = data?.rates?.[currency];
-                setRate(r || FALLBACK_RATES[currency]);
+                const fetchedRate = data?.rates?.[currency];
+                setRate(fetchedRate || FALLBACK_RATES[currency]);
             } catch {
-                console.warn("Using fallback rates");
+                console.warn("⚠️ Using fallback rates");
                 setRate(FALLBACK_RATES[currency]);
             }
         };
         fetchRate();
     }, [currency]);
 
-    // 🔹 функція для підрахунку токенів на основі введеної валюти
-    const convertToTokens = (amount: number): number => {
-        const amountInGBP = amount / rate; // конвертуємо у фунти
+    // 🔹 оновлення конвертованої ціни
+    useEffect(() => {
+        if (price !== "dynamic") {
+            const converted = Number(price) * rate;
+            setConvertedPrice(Number(converted.toFixed(2)));
+        }
+    }, [price, rate]);
+
+    // 🔹 підрахунок токенів (універсальний для будь-якої валюти)
+    const convertToTokens = (amountInSelectedCurrency: number): number => {
+        const amountInGBP = amountInSelectedCurrency / rate; // повертаємо у GBP
         return Math.floor(amountInGBP * TOKENS_PER_GBP);
     };
 
-    // 🔹 функція покупки
+    // 🔹 обробка покупки
     const handleBuy = async () => {
         if (!user) {
             showAlert("Please sign up", "You need to be signed in to buy tokens", "info");
-            setTimeout(() => {
-                window.location.href = "/sign-up";
-            }, 1500);
+            setTimeout(() => (window.location.href = "/sign-up"), 1500);
             return;
         }
 
-        if (price === "dynamic" && customAmount < MIN_CUSTOM_AMOUNT) {
-            showAlert(
-                `Minimum amount is ${symbol}${MIN_CUSTOM_AMOUNT.toFixed(2)}`,
-                "Please enter a higher amount",
-                "warning"
-            );
-            return;
-        }
+        // якщо користувач вводить власну суму
+        const amountInSelectedCurrency =
+            price === "dynamic" ? customAmount : convertedPrice;
 
-        try {
-            const tokenAmount = price === "dynamic" ? convertToTokens(customAmount) : tokens;
+        const tokenAmount =
+            price === "dynamic"
+                ? convertToTokens(customAmount)
+                : tokens;
 
-            const res = await fetch("/api/user/buy-tokens", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                credentials: "include",
-                body: JSON.stringify({ amount: tokenAmount }),
-            });
+        const checkoutData = {
+            email: user.email,
+            amount: Number(amountInSelectedCurrency.toFixed(2)),
+            baseAmountGBP: price === "dynamic"
+                ? Number((customAmount / rate).toFixed(2))
+                : Number(price),
+            currency,
+            description: `${title} token purchase`,
+            tokens: tokenAmount,
+            rate,
+        };
 
-            if (!res.ok) throw new Error("Failed to buy tokens");
-
-            const data = await res.json();
-            showAlert("Success!", `You purchased ${tokenAmount} tokens.`, "success");
-            console.log("Updated user:", data.user);
-        } catch (err: any) {
-            showAlert("Error", err.message || "Something went wrong", "error");
-        }
+        localStorage.setItem("checkoutData", JSON.stringify(checkoutData));
+        window.location.href = "/checkout";
     };
 
     return (
@@ -123,7 +126,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
             )}
             <h3 className={styles.title}>{title}</h3>
 
-            {/* Якщо динамічна покупка */}
+            {/* Якщо користувач сам вводить суму */}
             {price === "dynamic" ? (
                 <>
                     <Input
@@ -151,7 +154,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
             ) : (
                 <p className={styles.price}>
                     {symbol}
-                    {(Number(price) * rate).toFixed(2)}{" "}
+                    {convertedPrice.toFixed(2)}{" "}
                     <span className={styles.tokens}>/{tokens} tokens</span>
                 </p>
             )}
