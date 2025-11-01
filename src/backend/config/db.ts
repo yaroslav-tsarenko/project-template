@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
-import { ENV } from "./env";
 
 let isConnected = 0;
 
-export async function connectDB(): Promise<void> {
+export async function connectDB() {
     if (isConnected) return;
-    const conn = await mongoose.connect(ENV.MONGODB_URI);
+    const conn = await mongoose.connect(process.env.MONGODB_URI as string, {
+        dbName: process.env.MONGODB_DB || undefined,
+    } as any);
     isConnected = conn.connections[0].readyState;
-    if (ENV.NODE_ENV !== "production") console.log("MongoDB connected");
+    if (process.env.NODE_ENV !== "production") console.log("MongoDB connected");
 }
