@@ -5,12 +5,14 @@ import ButtonUI from "@/components/ui/button/ButtonUI";
 import { useAlert } from "@/context/AlertContext";
 import { useUser } from "@/context/UserContext";
 import Input from "@mui/joy/Input";
+import Checkbox from "@mui/joy/Checkbox";
+import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
 
 interface PricingCardProps {
     variant?: "basic" | "highlight" | "premium";
     title: string;
-    price: string; // базова ціна у GBP або "dynamic"
+    price: string;
     tokens: number;
     description: string;
     features: string[];
@@ -24,18 +26,16 @@ const currencyConfig = {
     EUR: { symbol: "€" },
 } as const;
 
-// 🔹 Фіксовані ліміти
+// Limits
 const MIN_CUSTOM_AMOUNT = 1;
 const MAX_CUSTOM_AMOUNT = 9999;
 
-// 🔹 Курси резервні, якщо API не працює
 const FALLBACK_RATES = {
     GBP: 1,
-    USD: 1.343, // 1 GBP = 1.343 USD
-    EUR: 1.145, // 1 GBP = 1.145 EUR
+    USD: 1.343,
+    EUR: 1.145,
 };
 
-// 🔹 Скільки токенів за 1 GBP
 const TOKENS_PER_GBP = 100;
 
 const PricingCard: React.FC<PricingCardProps> = ({
@@ -51,15 +51,20 @@ const PricingCard: React.FC<PricingCardProps> = ({
     const user = useUser();
     const { currency } = useCurrency();
     const { symbol } = currencyConfig[currency];
+
     const [customAmount, setCustomAmount] = useState<number>(MIN_CUSTOM_AMOUNT);
     const [rate, setRate] = useState<number>(FALLBACK_RATES[currency]);
     const [convertedPrice, setConvertedPrice] = useState<number>(0);
 
-    // 🔹 завантажуємо актуальний курс валют
+    // NEW ↓
+    const [acceptedTerms, setAcceptedTerms] = useState(false);
+
     useEffect(() => {
         const fetchRate = async () => {
             try {
-                const res = await fetch(`https://api.exchangerate.host/latest?base=GBP&symbols=${currency}`);
+                const res = await fetch(
+                    `https://api.exchangerate.host/latest?base=GBP&symbols=${currency}`
+                );
                 if (!res.ok) throw new Error("Failed to fetch rates");
                 const data = await res.json();
                 const fetchedRate = data?.rates?.[currency];
@@ -72,7 +77,6 @@ const PricingCard: React.FC<PricingCardProps> = ({
         fetchRate();
     }, [currency]);
 
-    // 🔹 оновлення конвертованої ціни
     useEffect(() => {
         if (price !== "dynamic") {
             const converted = Number(price) * rate;
@@ -80,22 +84,21 @@ const PricingCard: React.FC<PricingCardProps> = ({
         }
     }, [price, rate]);
 
-    // 🔹 підрахунок токенів (універсальний для будь-якої валюти)
-    const convertToTokens = (amountInSelectedCurrency: number): number => {
-        const amountInGBP = amountInSelectedCurrency / rate; // повертаємо у GBP
+    const convertToTokens = (amount: number): number => {
+        const amountInGBP = amount / rate;
         return Math.floor(amountInGBP * TOKENS_PER_GBP);
     };
 
-    // 🔹 обробка покупки
-    const handleBuy = async () => {
+    const handleBuy = () => {
+        if (!acceptedTerms) return;
+
         if (!user) {
             showAlert("Please sign up", "You need to be signed in to buy tokens", "info");
             setTimeout(() => (window.location.href = "/sign-up"), 1500);
             return;
         }
 
-        // якщо користувач вводить власну суму
-        const amountInSelectedCurrency =
+        const amountSelected =
             price === "dynamic" ? customAmount : convertedPrice;
 
         const tokenAmount =
@@ -105,10 +108,11 @@ const PricingCard: React.FC<PricingCardProps> = ({
 
         const checkoutData = {
             email: user.email,
-            amount: Number(amountInSelectedCurrency.toFixed(2)),
-            baseAmountGBP: price === "dynamic"
-                ? Number((customAmount / rate).toFixed(2))
-                : Number(price),
+            amount: Number(amountSelected.toFixed(2)),
+            baseAmountGBP:
+                price === "dynamic"
+                    ? Number((customAmount / rate).toFixed(2))
+                    : Number(price),
             currency,
             description: `${title} token purchase`,
             tokens: tokenAmount,
@@ -124,9 +128,10 @@ const PricingCard: React.FC<PricingCardProps> = ({
             {variant === "highlight" && (
                 <div className={styles.bestChoiceLabel}>⭐ Best Choice</div>
             )}
+
             <h3 className={styles.title}>{title}</h3>
 
-            {/* Якщо користувач сам вводить суму */}
+            {/* DYNAMIC PRICE */}
             {price === "dynamic" ? (
                 <>
                     <Input
@@ -135,20 +140,28 @@ const PricingCard: React.FC<PricingCardProps> = ({
                         onChange={(e) => {
                             const value = Number(e.target.value);
                             if (value.toString().length > 7) return;
-                            setCustomAmount(Math.max(Math.min(value, MAX_CUSTOM_AMOUNT), MIN_CUSTOM_AMOUNT));
+                            setCustomAmount(
+                                Math.max(
+                                    Math.min(value, MAX_CUSTOM_AMOUNT),
+                                    MIN_CUSTOM_AMOUNT
+                                )
+                            );
                         }}
-                        slotProps={{ input: { min: MIN_CUSTOM_AMOUNT, max: MAX_CUSTOM_AMOUNT, step: 0.01 } }}
+                        slotProps={{
+                            input: { min: MIN_CUSTOM_AMOUNT, max: MAX_CUSTOM_AMOUNT, step: 0.01 },
+                        }}
                         sx={{ mb: 2, width: "100%" }}
                         placeholder={`Enter amount (${symbol}${MIN_CUSTOM_AMOUNT}+ )`}
                         variant="outlined"
                         size="lg"
                     />
+
                     <p className={styles.price}>
                         {symbol}
                         {customAmount.toFixed(2)}{" "}
                         <span className={styles.tokens}>
-              ≈ {convertToTokens(customAmount)} tokens
-            </span>
+                            ≈ {convertToTokens(customAmount)} tokens
+                        </span>
                     </p>
                 </>
             ) : (
@@ -167,7 +180,26 @@ const PricingCard: React.FC<PricingCardProps> = ({
                 ))}
             </ul>
 
-            <ButtonUI type="button" sx={{ width: "100%" }} onClick={handleBuy}>
+            {/* ➤ NEW: TERMS CHECKBOX */}
+            <Checkbox
+                checked={acceptedTerms}
+                onChange={(e) => setAcceptedTerms(e.target.checked)}
+                label={
+                    <span>
+                        I agree to{" "}
+                        <Link href="/terms" style={{ color: "#4A8BFF", textDecoration: "underline" }}>
+                            Terms & Conditions
+                        </Link>
+                    </span>
+                }
+                sx={{ mb: 2 }}
+            />
+
+            <ButtonUI
+                type="button"
+                sx={{ width: "100%", opacity: acceptedTerms ? 1 : 0.5 }}
+                onClick={acceptedTerms ? handleBuy : undefined}
+            >
                 {user ? buttonText : "Sign Up to Buy"}
             </ButtonUI>
         </div>
