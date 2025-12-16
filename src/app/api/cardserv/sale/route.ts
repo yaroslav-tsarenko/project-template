@@ -100,8 +100,10 @@ export async function POST(req: NextRequest) {
             "/api/payments/sale",
             saleBody,
             currency,
+            "SALE",
             "SALE"
         );
+
 
         await Order.create({
             orderMerchantId,
@@ -130,6 +132,7 @@ export async function POST(req: NextRequest) {
                 orderSystemId: saleRes.orderSystemId,
             },
             currency,
+            "STATUS",
             "STATUS"
         );
 

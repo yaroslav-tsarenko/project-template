@@ -1,9 +1,12 @@
 import { getCardServCfg } from "./config";
 
+type CardServMode = "SALE" | "STATUS";
+
 export async function csFetch(
     path: string,
     body: any,
     currency = "EUR",
+    mode: CardServMode = "SALE",
     tag = "CS"
 ) {
     const cfg = getCardServCfg(currency);
@@ -11,10 +14,14 @@ export async function csFetch(
     const baseUrl = (process.env.CARDSERV_BASE_URL || "https://live.cardserv.io")
         .replace(/\/+$/, "");
 
-    const url = `${baseUrl}${path}/${cfg.REQUESTOR_ID}`;
+    // 🔑 URL RULES
+    const url =
+        mode === "SALE"
+            ? `${baseUrl}${path}/${cfg.REQUESTOR_ID}`
+            : `${baseUrl}${path}`;
 
     console.log(`\n[${tag}] ➡️ POST ${url}`);
-    console.log(`[${tag}] currency=${currency}`);
+    console.log(`[${tag}] mode=${mode} currency=${currency}`);
     console.log(`[${tag}] headers: Bearer ****${cfg.TOKEN.slice(-6)}`);
     console.log(`[${tag}] body:\n`, JSON.stringify(body, null, 2));
 
@@ -23,29 +30,24 @@ export async function csFetch(
         headers: {
             Authorization: `Bearer ${cfg.TOKEN}`,
             "Content-Type": "application/json",
-            "Cache-Control": "no-store",
-            Pragma: "no-cache",
         },
         body: JSON.stringify(body),
     });
 
     const text = await res.text();
-
     console.log(`\n[${tag}] ⬅️ STATUS ${res.status} ${res.statusText}`);
     console.log(`[${tag}] RAW RESPONSE:\n`, text);
 
     let data: any = null;
     try {
         data = JSON.parse(text);
-    } catch {
-        // CardServ sometimes returns plain text
-    }
+    } catch {}
 
     if (!res.ok) {
         throw new Error(
-            `[CardServ ${tag} ERROR ${res.status}] ` +
-            (data?.errorDescription ||
-                data?.errorMessage ||
+            `[CardServ ${mode} ERROR ${res.status}] ` +
+            (data?.errorMessage ||
+                data?.errorDescription ||
                 data?.message ||
                 text)
         );
