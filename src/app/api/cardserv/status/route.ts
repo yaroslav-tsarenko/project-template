@@ -11,10 +11,15 @@ export async function POST(req: NextRequest) {
         const order = await Order.findOne({ orderMerchantId });
         if (!order) throw new Error("Order not found");
 
-        const data = await csFetch("/api/payments/status", {
-            orderMerchantId,
-            orderSystemId: order.raw?.sale?.orderSystemId,
-        });
+        const data = await csFetch(
+            "/api/payments/status",
+            {
+                orderMerchantId,
+                orderSystemId: order.raw?.sale?.orderSystemId,
+            },
+            order.currency,
+            "STATUS"
+        );
 
         order.status = data.orderState || "PROCESSING";
         order.raw = { ...(order.raw || {}), status: data };

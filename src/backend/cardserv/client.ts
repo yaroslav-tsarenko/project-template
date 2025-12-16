@@ -1,17 +1,28 @@
-// backend/cardserv/client.ts
-export async function csFetch(path: string, body: any, tag = "CS") {
-    const baseUrl = (process.env.CARDSERV_BASE_URL || "https://test.cardserv.io").replace(/\/+$/, "");
-    const url = `${baseUrl}${path.startsWith("/") ? path : `/${path}`}/${process.env.CARDSERV_REQUESTOR_ID}`;
+import { getCardServCfg } from "./config";
 
-    console.log(`[${tag}] ➡️  POST ${url}`);
-    console.log(`[${tag}] body:`, JSON.stringify(body, null, 2));
+export async function csFetch(
+    path: string,
+    body: any,
+    currency = "EUR",
+    tag = "CS"
+) {
+    const cfg = getCardServCfg(currency);
+
+    const baseUrl = (process.env.CARDSERV_BASE_URL || "https://live.cardserv.io")
+        .replace(/\/+$/, "");
+
+    const url = `${baseUrl}${path}/${cfg.REQUESTOR_ID}`;
+
+    console.log(`\n[${tag}] ➡️ POST ${url}`);
+    console.log(`[${tag}] currency=${currency}`);
+    console.log(`[${tag}] headers: Bearer ****${cfg.TOKEN.slice(-6)}`);
+    console.log(`[${tag}] body:\n`, JSON.stringify(body, null, 2));
 
     const res = await fetch(url, {
         method: "POST",
         headers: {
-            Authorization: `Bearer ${process.env.CARDSERV_BEARER_TOKEN}`,
+            Authorization: `Bearer ${cfg.TOKEN}`,
             "Content-Type": "application/json",
-            "X-Debug": "1",
             "Cache-Control": "no-store",
             Pragma: "no-cache",
         },
@@ -19,14 +30,26 @@ export async function csFetch(path: string, body: any, tag = "CS") {
     });
 
     const text = await res.text();
-    console.log(`[${tag}] ⬅️  status=${res.status} ${res.statusText}`);
-    console.log(`[${tag}] raw: ${text}`);
 
+    console.log(`\n[${tag}] ⬅️ STATUS ${res.status} ${res.statusText}`);
+    console.log(`[${tag}] RAW RESPONSE:\n`, text);
+
+    let data: any = null;
     try {
-        const data = JSON.parse(text);
-        if (data?.errorCode) console.error(`[${tag}] ⚠️  errorCode:`, data);
-        return data;
+        data = JSON.parse(text);
     } catch {
-        throw new Error("CardServ returned non-JSON: " + text.slice(0, 400));
+        // CardServ sometimes returns plain text
     }
+
+    if (!res.ok) {
+        throw new Error(
+            `[CardServ ${tag} ERROR ${res.status}] ` +
+            (data?.errorDescription ||
+                data?.errorMessage ||
+                data?.message ||
+                text)
+        );
+    }
+
+    return data;
 }
