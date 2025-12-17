@@ -24,7 +24,50 @@ export default function CheckoutPage() {
     const [city, setCity] = useState("");
     const [postalCode, setPostalCode] = useState("");
 
-    // 🧠 Load checkout data
+
+    async function waitForRedirect({
+                                       orderMerchantId,
+                                   }: {
+        orderMerchantId: string;
+    }): Promise<{
+        status: "REDIRECT" | "APPROVED" | "DECLINED" | "TIMEOUT";
+        redirectUrl?: string;
+    }> {
+        for (let i = 0; i < 8; i++) {
+            await new Promise(r => setTimeout(r, 1500));
+
+            const res = await fetch("/api/cardserv/status", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ orderMerchantId }),
+            });
+
+            const json = await res.json();
+            const data = json?.data ?? json;
+
+            const redirectUrl =
+                data?.redirectData?.redirectUrl ||
+                data?.redirectData?.threeDSRedirectUrl ||
+                data?.redirectUrl;
+
+            if (redirectUrl) {
+                return { status: "REDIRECT", redirectUrl };
+            }
+
+            if (data?.orderState === "APPROVED") {
+                return { status: "APPROVED" };
+            }
+
+            if (data?.orderState === "DECLINED") {
+                return { status: "DECLINED" };
+            }
+        }
+
+        return { status: "TIMEOUT" };
+    }
+
+
+
     useEffect(() => {
         const data = localStorage.getItem("checkoutData");
         if (!data) {
@@ -60,7 +103,7 @@ export default function CheckoutPage() {
         setCvv(raw);
     };
 
-    // 🧾 Handle payment
+    // CheckoutPage.tsx (твій компонент)
     const handlePayment = async (e: React.FormEvent) => {
         e.preventDefault();
         setProcessing(true);
@@ -72,7 +115,6 @@ export default function CheckoutPage() {
                 body: JSON.stringify({
                     ...checkout,
                     amount: total,
-                    total,
                     cardNumber,
                     expiry,
                     cvv,
@@ -84,28 +126,27 @@ export default function CheckoutPage() {
                 }),
             });
 
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.error || "Payment request failed");
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.error || "Payment failed");
 
-            if (data?.data?.redirectUrl) {
-                console.log("🔁 Redirecting to:", data.data.redirectUrl);
-                window.location.href = data.data.redirectUrl;
+            const redirectUrl = json?.data?.redirectUrl;
+
+            // ✅ завжди очікуємо 3DS, бо challengeIndicator=04
+            if (redirectUrl) {
+                window.location.href = redirectUrl;
                 return;
             }
 
-            if (typeof data === "string" && data.includes("<form")) {
-                const newWindow = window.open();
-                if (newWindow) newWindow.document.write(data);
-                return;
-            }
-
-            alert("Redirect URL not provided yet. Please retry later.");
+            // ✅ якщо раптом frictionless (або redirect ще не встиг) — йдемо на result, де буде чек статуса
+            router.push(`/checkout/result?omId=${json.data.orderMerchantId}`);
         } catch (err: any) {
             alert(err.message || "Payment failed");
         } finally {
             setProcessing(false);
         }
     };
+
+
 
     if (loading)
         return (
