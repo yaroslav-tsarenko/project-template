@@ -314,6 +314,7 @@ const Footer: React.FC = () => {
                                         <Image src={media.google_pay} alt="Visa" width={150} height={35}/>
                                         <Image src={media.apple_pay} alt="Visa" width={150} height={35}/>
                                         <Image src={media.american_express} alt="Visa" width={150} height={35}/>
+                                        <Image src={media.union_pay} alt="Union Pay" width={150} height={35}/>
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,3 @@
-// app/api/cardserv/sale/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/backend/config/db";
 import { Order } from "@/backend/models/order.model";
@@ -35,6 +34,7 @@ export async function POST(req: NextRequest) {
 
         const orderMerchantId = randomUUID();
 
+        // ✅ ПОВНИЙ PAYLOAD — 1:1 ЯК У ПРАЦЮЮЧОМУ ПРИКЛАДІ
         const saleBody = {
             order: {
                 orderMerchantId,
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
                 lastname: body.cardholder.split(" ")[1] ?? "Doe",
                 customerEmail: email,
                 address: {
-                    countryCode: cfg.COUNTRY, // ✅ важливо: по валюті
+                    countryCode: cfg.COUNTRY,
                     zipCode: body.postalCode || "00000",
                     city: body.city || "London",
                     line1: body.address || "Unknown street",
@@ -76,19 +76,23 @@ export async function POST(req: NextRequest) {
                 cardPrintedName: body.cardholder,
             },
             urls: {
-                // ✅ повернення з 3DS
                 resultUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/checkout/result?omId=${orderMerchantId}`,
                 webhookUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/api/cardserv/webhook`,
             },
         };
 
-        // 1) SALE
-        const saleRes = await csFetch("/api/payments/sale", saleBody, currency, "SALE");
+        // 1️⃣ SALE
+        const saleRes = await csFetch(
+            "/api/payments/sale",
+            saleBody,
+            currency,
+            "SALE"
+        );
 
         const orderSystemId =
             saleRes?.orderSystemId || saleRes?.order?.orderSystemId || null;
 
-        // 2) зберегти ордер
+        // 2️⃣ Save order
         await Order.create({
             orderMerchantId,
             amount: Number(body.amount),
@@ -100,7 +104,7 @@ export async function POST(req: NextRequest) {
             raw: { sale: saleRes },
         });
 
-        // 3) 1-2 статус чеки на сервері, щоб дістати redirectUrl (як у робочому проєкті)
+        // 3️⃣ Status polling (як у прикладі)
         let redirectUrl: string | null = null;
         let statusRes: any = null;
 
@@ -122,7 +126,6 @@ export async function POST(req: NextRequest) {
             if (["APPROVED", "DECLINED"].includes(statusRes?.orderState)) break;
         }
 
-        // 4) оновити raw.status (не обов’язково, але корисно)
         if (statusRes) {
             await Order.updateOne(
                 { orderMerchantId },
@@ -135,17 +138,17 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // ✅ ПОВЕРТАЄМО redirectUrl одразу, якщо він є
         return NextResponse.json({
             ok: true,
             data: {
                 orderMerchantId,
                 orderSystemId,
                 state: statusRes?.orderState || saleRes?.orderState || "PROCESSING",
-                redirectUrl, // ✅ саме це потрібно клієнту
+                redirectUrl,
             },
         });
     } catch (e: any) {
+        console.error("💥 CardServ SALE error:", e);
         return NextResponse.json({ ok: false, error: e.message }, { status: 400 });
     }
 }

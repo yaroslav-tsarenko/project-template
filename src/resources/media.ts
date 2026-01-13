@@ -21,6 +21,7 @@ import mastercard from "@/assets/icons/mastercard-logo.svg";
 import apple_pay from "@/assets/icons/Apple_Pay_logo.svg";
 import google_pay from "@/assets/icons/Google_Pay_Logo.svg";
 import american_express from "@/assets/icons/American_Express_logo.svg";
+import union_pay from "@/assets/icons/union-pay.png";
 
 
 export const media = {
@@ -29,6 +30,7 @@ export const media = {
     apple_pay: apple_pay,
     google_pay: google_pay,
     american_express: american_express,
+    union_pay: union_pay,
     logo: logo,
     logo_white: logo_white,
     image1: image1,
