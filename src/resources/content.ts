@@ -1,5 +1,6 @@
-import { media } from "@/resources/media";
 import { COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_LEGAL_NAME, COMPANY_NUMBER } from "@/resources/constants";
+import { FaInstagram, FaLinkedin } from "react-icons/fa";
+import { media } from "@/resources/media";
 
 export const baseURL =
     typeof window !== "undefined"
@@ -66,6 +67,10 @@ const footerContentTranslations = {
                 ],
             },
         ],
+        socials: [
+            { label: "Instagram", href: "https://www.instagram.com/ilovemanual.uk", icon: FaInstagram },
+            { label: "LinkedIn", href: "https://www.linkedin.com/company/ilovemanual-uk/", icon: FaLinkedin },
+        ],
         contact: {
             email: COMPANY_EMAIL,
         },
@@ -101,6 +106,10 @@ const footerContentTranslations = {
                     { label: "Gizlilik Politikası", href: "/cookie-policy" },
                 ],
             },
+        ],
+        socials: [
+            { label: "Instagram", href: "https://www.instagram.com/ilovemanual.uk", icon: FaInstagram },
+            { label: "LinkedIn", href: "https://www.linkedin.com/company/ilovemanual-uk/", icon: FaLinkedin },
         ],
         contact: {
             email: COMPANY_EMAIL,
