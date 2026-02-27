@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { ToggleButton, ToggleButtonGroup, Select, MenuItem, SelectChangeEvent } from "@mui/material";
+import React from "react";
+import { Select, MenuItem, SelectChangeEvent } from "@mui/material";
 import styles from "./Selectors.module.scss";
 import { useI18n } from "@/context/i18nContext";
 import {useCurrency} from "@/context/CurrencyContext";
+import { DISPLAY_CURRENCIES, type Currency } from "@/utils/currency";
 
 const Selectors = () => {
     const { currency, setCurrency } = useCurrency();
@@ -13,24 +14,26 @@ const Selectors = () => {
         setLang(newLang);
     };
 
+    const handleCurrencyChange = (e: SelectChangeEvent) => {
+        const newCurrency = e.target.value as Currency;
+        setCurrency(newCurrency);
+    };
+
     return (
         <div className={styles.selectorsWrapper}>
             <div className={styles.selectorBlock}>
-                <ToggleButtonGroup
-                    sx={{
-                        backgroundColor: "#fff",
-                    }}
+                <Select
                     value={currency}
-                    exclusive
-                    onChange={(_, val) => val && setCurrency(val)}
+                    onChange={handleCurrencyChange}
                     size="small"
-                    color="primary"
-                    className={styles.toggleGroup}
+                    className={styles.select}
                 >
-                    <ToggleButton value="GBP">GBP</ToggleButton>
-                    <ToggleButton value="USD">USD</ToggleButton>
-                    <ToggleButton value="EUR">EUR</ToggleButton>
-                </ToggleButtonGroup>
+                    {DISPLAY_CURRENCIES.map((c) => (
+                        <MenuItem key={c} value={c}>
+                            {c}
+                        </MenuItem>
+                    ))}
+                </Select>
             </div>
             <div className={styles.selectorBlock}>
                 <Select

@@ -8,6 +8,13 @@ import { getCardServCfg } from "@/backend/cardserv/config";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+function normalizeCurrency(currency?: string) {
+    const c = (currency || "EUR").toUpperCase();
+    if (c === "AUD" || c === "CAD" || c === "NZD") return "GBP";
+    if (c !== "GBP" && c !== "EUR" && c !== "USD") return "GBP";
+    return c;
+}
+
 function pickRedirectUrl(data: any): string | null {
     return (
         data?.redirectData?.redirectUrl ||
@@ -29,7 +36,7 @@ export async function POST(req: NextRequest) {
         } catch {}
 
         const body = await req.json();
-        const currency = (body.currency || "EUR") as string;
+        const currency = normalizeCurrency(body.currency);
         const cfg = getCardServCfg(currency);
 
         const orderMerchantId = randomUUID();

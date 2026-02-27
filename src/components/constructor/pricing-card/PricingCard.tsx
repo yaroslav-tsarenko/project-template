@@ -8,6 +8,7 @@ import Input from "@mui/joy/Input";
 import Checkbox from "@mui/joy/Checkbox";
 import Link from "next/link";
 import { useCurrency } from "@/context/CurrencyContext";
+import { CURRENCY_SYMBOL, GBP_FALLBACK_RATES, type Currency } from "@/utils/currency";
 
 interface PricingCardProps {
     variant?: "basic" | "highlight" | "premium";
@@ -20,21 +21,8 @@ interface PricingCardProps {
     buttonLink?: string;
 }
 
-const currencyConfig = {
-    GBP: { symbol: "£" },
-    USD: { symbol: "$" },
-    EUR: { symbol: "€" },
-} as const;
-
-// Limits
 const MIN_CUSTOM_AMOUNT = 1;
 const MAX_CUSTOM_AMOUNT = 9999;
-
-const FALLBACK_RATES = {
-    GBP: 1,
-    USD: 1.343,
-    EUR: 1.145,
-};
 
 const TOKENS_PER_GBP = 100;
 
@@ -50,28 +38,30 @@ const PricingCard: React.FC<PricingCardProps> = ({
     const { showAlert } = useAlert();
     const user = useUser();
     const { currency } = useCurrency();
-    const { symbol } = currencyConfig[currency];
+    const symbol = CURRENCY_SYMBOL[currency as Currency];
 
     const [customAmount, setCustomAmount] = useState<number>(MIN_CUSTOM_AMOUNT);
-    const [rate, setRate] = useState<number>(FALLBACK_RATES[currency]);
+    const [rate, setRate] = useState<number>(GBP_FALLBACK_RATES[currency as Currency]);
     const [convertedPrice, setConvertedPrice] = useState<number>(0);
 
-    // NEW ↓
     const [acceptedTerms, setAcceptedTerms] = useState(false);
 
     useEffect(() => {
         const fetchRate = async () => {
             try {
-                const res = await fetch(
-                    `https://api.exchangerate.host/latest?base=GBP&symbols=${currency}`
-                );
+                if (currency === "GBP") {
+                    setRate(1);
+                    return;
+                }
+
+                const res = await fetch(`/api/exchange?base=GBP`);
                 if (!res.ok) throw new Error("Failed to fetch rates");
                 const data = await res.json();
                 const fetchedRate = data?.rates?.[currency];
-                setRate(fetchedRate || FALLBACK_RATES[currency]);
+                setRate(fetchedRate || GBP_FALLBACK_RATES[currency as Currency]);
             } catch {
                 console.warn("⚠️ Using fallback rates");
-                setRate(FALLBACK_RATES[currency]);
+                setRate(GBP_FALLBACK_RATES[currency as Currency]);
             }
         };
         fetchRate();

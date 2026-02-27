@@ -3,6 +3,13 @@ import { connectDB } from "@/backend/config/db";
 import { Order } from "@/backend/models/order.model";
 import { csFetch } from "@/backend/cardserv/client";
 
+function normalizeCurrency(currency?: string) {
+    const c = (currency || "EUR").toUpperCase();
+    if (c === "AUD" || c === "CAD" || c === "NZD") return "GBP";
+    if (c !== "GBP" && c !== "EUR" && c !== "USD") return "GBP";
+    return c;
+}
+
 function pickRedirectUrl(data: any): string | null {
     return (
         data?.redirectData?.redirectUrl ||
@@ -27,7 +34,7 @@ export async function POST(req: NextRequest) {
                 orderMerchantId,
                 orderSystemId: order.raw?.sale?.orderSystemId,
             },
-            order.currency,
+            normalizeCurrency(order.currency),
             "STATUS"
         );
 

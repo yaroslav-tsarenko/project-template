@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import styles from "./CheckoutPage.module.scss";
 import { useUser } from "@/context/UserContext";
+import { normalizeCurrencyForRequest } from "@/utils/currency";
 
 export default function CheckoutPage() {
     const router = useRouter();
@@ -115,6 +116,7 @@ export default function CheckoutPage() {
                 body: JSON.stringify({
                     ...checkout,
                     amount: total,
+                    currency: normalizeCurrencyForRequest(checkout.currency),
                     cardNumber,
                     expiry,
                     cvv,
