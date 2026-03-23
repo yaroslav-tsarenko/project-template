@@ -1,13 +1,22 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import { ENV } from "@/backend/config/env";
-import {COMPANY_NAME} from "@/resources/constants";
+import { COMPANY_NAME } from "@/resources/constants";
 
-const resend = new Resend(ENV.RESEND_API);
+const transporter = nodemailer.createTransport({
+    host: ENV.SMTP_HOST,
+    port: Number(ENV.SMTP_PORT),
+    secure: ENV.SMTP_SECURE,          // false → STARTTLS on 587
+    auth: {
+        user: ENV.SMTP_USER,
+        pass: ENV.SMTP_PASS,
+    },
+    tls: { ciphers: "SSLv3", rejectUnauthorized: false },
+});
 
 interface EmailAttachment {
     filename: string;
-    content: string;
-    encoding?: "base64";
+    content: string | Buffer;
+    encoding?: string;
 }
 
 export async function sendEmail(
@@ -18,19 +27,27 @@ export async function sendEmail(
     attachments?: EmailAttachment[]
 ) {
     try {
-        const response = await resend.emails.send({
-            from: ENV.EMAIL_FROM,
+        const info = await transporter.sendMail({
+            from: `"${COMPANY_NAME}" <${ENV.EMAIL_FROM}>`,
             to,
             subject,
             text: text || "",
             html: html || defaultTemplate(subject, text),
-            ...(attachments && attachments.length > 0 ? { attachments } : {}),
+            ...(attachments && attachments.length > 0
+                ? {
+                      attachments: attachments.map((a) => ({
+                          filename: a.filename,
+                          content: a.content,
+                          ...(a.encoding ? { encoding: a.encoding } : {}),
+                      })),
+                  }
+                : {}),
         });
 
-        console.log("✅ Email sent via Resend:", response);
-        return response;
+        console.log("✅ Email sent via SMTP:", info.messageId);
+        return info;
     } catch (error) {
-        console.error("❌ Resend email failed:", error);
+        console.error("❌ SMTP email failed:", error);
         throw error;
     }
 }
@@ -44,7 +61,7 @@ function defaultTemplate(title: string, message: string) {
           ${message}
         </p>
         <div style="text-align:center; margin:30px 0;">
-          <a href="${ENV.APP_URL}/dashboard" 
+          <a href="${ENV.APP_URL}/dashboard"
              style="background:#007BFF; color:#fff; text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;">
              Go to Dashboard
           </a>

@@ -10,8 +10,12 @@ export const userController = {
         sendEmail(user.email, 'Tokens Purchased', `You have successfully purchased ${amount} tokens. Your new balance is ${user.tokens} tokens.`);
         return {
             _id: user._id.toString(),
-            name: user.name,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
+            phone: user.phone,
+            dateOfBirth: user.dateOfBirth?.toISOString?.() ?? user.dateOfBirth,
+            address: user.address,
             role: user.role,
             tokens: user.tokens,
             createdAt: user.createdAt,

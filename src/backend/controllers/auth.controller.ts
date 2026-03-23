@@ -5,8 +5,23 @@ import { AuthResponse, AuthError, LogoutResponse } from "@/backend/types/auth.ty
 import { UserType } from "@/backend/types/user.types";
 import { signAccessToken } from "../utils/jwt";
 
+export interface RegisterBody {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    phone: string;
+    dateOfBirth: string;
+    address: {
+        street: string;
+        city: string;
+        country: string;
+        postalCode: string;
+    };
+}
+
 export const authController = {
-    async register(body: { name: string; email: string; password: string }) {
+    async register(body: RegisterBody) {
         await connectDB();
         const { user, accessToken, refreshToken } = await authService.register(body);
         return { user: toUser(user), tokens: { accessToken, refreshToken } };
@@ -46,8 +61,12 @@ export const authController = {
 function toUser(u: any): UserType {
     return {
         _id: u._id.toString(),
-        name: u.name,
+        firstName: u.firstName,
+        lastName: u.lastName,
         email: u.email,
+        phone: u.phone,
+        dateOfBirth: u.dateOfBirth?.toISOString?.() ?? u.dateOfBirth,
+        address: u.address,
         role: u.role,
         tokens: u.tokens,
         createdAt: u.createdAt,

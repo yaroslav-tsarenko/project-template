@@ -1,4 +1,4 @@
-import { COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_LEGAL_NAME, COMPANY_NUMBER } from "@/resources/constants";
+import { COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_LEGAL_NAME, COMPANY_NUMBER, COMPANY_PHONE } from "@/resources/constants";
 import { FaInstagram, FaLinkedin } from "react-icons/fa";
 import { media } from "@/resources/media";
 
@@ -73,6 +73,8 @@ const footerContentTranslations = {
         ],
         contact: {
             email: COMPANY_EMAIL,
+            phone: COMPANY_PHONE,
+            address: COMPANY_ADDRESS,
         },
         legal: {
             companyName: COMPANY_LEGAL_NAME,
@@ -113,6 +115,8 @@ const footerContentTranslations = {
         ],
         contact: {
             email: COMPANY_EMAIL,
+            phone: COMPANY_PHONE,
+            address: COMPANY_ADDRESS,
         },
         legal: {
             companyName: COMPANY_LEGAL_NAME,

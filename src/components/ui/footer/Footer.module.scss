@@ -442,3 +442,23 @@
     grid-template-columns: repeat(var(--footer-cols-sm), minmax(160px, 1fr));
   }
 }
+
+.footer__pci {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+
+  svg {
+    flex-shrink: 0;
+    color: #27ae60;
+  }
+}
+
